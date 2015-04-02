@@ -1,0 +1,18 @@
+.page-main {
+	float: left;
+	margin-left: 13px;
+	width: 123px;
+	height: 40px;
+	color: #97AABC;
+	border-radius: 4px;
+	background: white;
+	text-align: center;
+	border: 2px solid #8498AC;
+  font-family: 'Proxima Nova Bold';
+  font-size: 14px;
+}
+
+.page-main.active {
+	background: #97AABC;
+	color: white;
+}

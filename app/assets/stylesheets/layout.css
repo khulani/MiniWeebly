@@ -1,0 +1,94 @@
+.layout {
+	float: left;
+	min-width: 97%;
+	height: 100px;
+	padding: 10px;
+	border: 1px dashed white;
+	border-radius: 5px;
+}
+
+.layout:hover {
+	border-color: gray;
+}
+
+.layout-clear {
+	position: relative;
+	visibility: hidden;
+}
+
+.layout-move {
+	position: absolute;
+	top: -15px;
+	right: 50%;
+	width: 30px;
+	border: 1px solid gray;
+	border-radius: 5px;
+	background: white;
+	text-align: center;
+}
+
+.layout:hover > .layout-clear {
+	visibility: visible;
+}
+
+.layout-resize {
+	position: absolute;
+	bottom: 0px;
+	right: 50%;
+	width: 30px;
+	height: 10px;
+	border: 1px solid gray;
+	border-radius: 5px;
+	background: white;
+	text-align: center;
+}
+
+.layout-title {
+	width:100%;
+	height: 95px; 
+	border: none;
+	font-size: 24px;
+}
+
+.layout-text {
+	width:100%;
+	height: 95px; 
+	border: none;
+}
+
+.layout-old:after {
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: " ";
+	clear: both;
+	height: 0px;
+}
+
+.layout-hori {
+	min-width: 97%;
+	height: 30px;
+}
+
+.layout-vert {
+	float: left;
+	width: 2%;
+	min-height: 100px;
+	border: 1px dashed gray;
+}
+
+.layout-content {
+	float: left;
+	min-height: 100px;
+	width: 95%;
+	border: 1px dashed gray;
+}
+
+.layout-row:after {
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: " ";
+	clear: both;
+	height: 0px;
+}

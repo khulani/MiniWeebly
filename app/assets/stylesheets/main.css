@@ -1,0 +1,63 @@
+@font-face {
+  font-family: "Proxima Nova Bold";
+  src: url('ProximaNova-Sbold.otf') format('opentype');
+}
+
+html {
+	height: 100%;
+}
+
+body {
+	margin: 0px 0px;
+	height: 100%;
+}
+
+.mini-weebly {
+	height: 100%;
+}
+
+.navbar {
+	position: fixed;
+	padding-left: 29px;
+	width: 100%;
+	height: 41px;
+	background: #518DCA;
+	border-bottom: 1px solid #404040;
+}
+
+.main {
+	float: left;
+	margin-top: 84px;
+	margin-left: 295px;
+	font-family: 'Proxima Nova Bold';
+	font-size: 15px;
+	width: 70%;
+	height:	100%;
+}
+
+.pages:after {
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: " ";
+	clear: both;
+	height: 20px;
+}
+
+.body {
+	min-width: 100%;
+	min-height: 100%;
+	border: 1px dashed gray;
+	border-radius: 5px;
+	padding: 10px;
+}
+
+.body:after {
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: " ";
+	clear: both;
+	height: 0px;
+}
+
