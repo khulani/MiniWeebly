@@ -1,13 +1,68 @@
 MiniWeebly.Views.DragView = Backbone.View.extend({
+	template: JST['layout'],
+	titleTemplate: JST['title'],
+	textTemplate: JST['text'],
+	navTemplate: JST['nav'],
+
 	initialize: function () {
-		this.layout = [];
 	},
 
 	events: {
 		'dragover .layout': 'findPosition',
 		'dragstart': 'trackDragged',
 		'drop': 'updateLayout',
-		'dragover .body': 'makeDroppable'
+		'dragover .body': 'makeDroppable',
+		'mousedown .layout-resize' : 'startResize',
+		'mousemove': 'resizeLayout',
+		'mouseup' : 'endResize'
+	},
+
+	startResize: function (event) {
+		event.preventDefault();
+		// event.stopPropagation();
+		this.pos = event.pageY;
+		this.resize = true;
+		this.layout = $(event.target.parentElement.parentElement);
+	},
+
+	resizeLayout: function (event) {
+		if (this.resize) {
+			var delta = this.pos - event.pageY;
+			this.pos = event.pageY;
+			var size = this.layout.height();
+			// if (size - delta > 100) {
+				// this.delta += delta;
+				this.layout.height(size - delta);
+			// 	this.$('.layout-resize').css('bottom', this.delta + 'px');
+			// }
+			if (this.layout.find('textarea')) {
+				var textSize = this.layout.find('textarea').height();
+				this.layout.find('textarea').height(textSize - delta);
+			}
+		
+		}
+	},
+
+	endResize: function (event) {
+		if (this.resize) {
+			this.mainView.saveActive();
+			this.resize = false;
+		}
+	},
+
+	renderLayout: function () {
+		var content;
+		switch (this.dragging) {
+			case 'title':
+				content = this.titleTemplate();
+				break;
+			case 'text':
+				content = this.textTemplate();
+				break;
+			default:
+				content = this.template({ type: this.dragging });
+		}
+		return content;
 	},
 
 	trackDragged: function (event) {
@@ -19,20 +74,21 @@ MiniWeebly.Views.DragView = Backbone.View.extend({
 		// console.log(this.dragging);
 		var dropSpot = event.target.getAttribute('class');
 		if (this.dragging) {
-			var layout = new MiniWeebly.Views.LayoutView({ dragging: this.dragging });
-
 			if (dropSpot === 'layout-hori' || dropSpot === 'layout') {
-				$(event.target).after(layout.render().$el);
+				$(event.target).after(this.renderLayout());
 			} else if (dropSpot === 'layout-text' || dropSpot === 'layout-title') {
-				$(event.target).parent().after(layout.render().$el);
+				$(event.target).parent().after(this.renderLayout());
 			} else {
-				this.$el.find('.body').append(layout.render().$el);
+				this.$el.find('.body').append(this.renderLayout());
 			}
+			this.mainView.saveActive();
 		} else {
 			if (dropSpot === 'layout-hori' || dropSpot === 'layout') {
 				$(event.target).after(this.dragged);
+				this.mainView.saveActive();
 			} else if (dropSpot === 'layout-text' || dropSpot === 'layout-title') {
 				$(event.target).parent().after(this.dragged);
+				this.mainView.saveActive();
 			} 
 		}
 	},
@@ -64,8 +120,7 @@ MiniWeebly.Views.DragView = Backbone.View.extend({
 	render: function () {
 		this.$el.addClass('mini-weebly');
 		this.sideView = new MiniWeebly.Views.SideView({
-			collection: this.collection,
-			model: this.model
+			collection: this.collection
 		});
 		this.$el.append(this.sideView.render().$el);
 

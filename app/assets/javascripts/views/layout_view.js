@@ -26,7 +26,7 @@ MiniWeebly.Views.LayoutView = Backbone.View.extend({
 	resizeLayout: function (event) {
 		if (this.resize) {
 			var delta = this.pos - event.pageY;
-			this.pos = event.pageY
+			this.pos = event.pageY;
 			var size = this.$el.height();
 			// if (size - delta > 100) {
 				// this.delta += delta;

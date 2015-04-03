@@ -57,14 +57,13 @@ MiniWeebly.Views.MainView = Backbone.View.extend({
     }
 	},
 
-	renderActive: function () {
-
+	saveActive: function () {
+		this.activePage.saveContent();
 	},
 
 	render: function () {
 		this.$el.addClass('main');
 		this.$el.html(this.template());
-		this.renderActive();
 		return this;
 	}
 

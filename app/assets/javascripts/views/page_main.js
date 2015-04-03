@@ -24,7 +24,6 @@ MiniWeebly.Views.PageMain = Backbone.View.extend({
 	},
 
 	saveContent: function () {
-		debugger;
 		this.model.set('content', $('.page-layout').html());
 		this.model.save();
 	},
