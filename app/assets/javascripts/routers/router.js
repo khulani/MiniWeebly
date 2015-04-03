@@ -32,7 +32,7 @@ MiniWeebly.Routers.Router = Backbone.Router.extend({
 		MiniWeebly.pages.fetch();
 		this.dragView = new MiniWeebly.Views.DragView({
 			collection: MiniWeebly.pages,
-			activePage: id
+			activePageId: id
 		});
 		this.$rootEl.append(this.dragView.render().$el);
 	}

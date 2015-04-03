@@ -3,8 +3,12 @@ MiniWeebly.Views.DragView = Backbone.View.extend({
 	titleTemplate: JST['title'],
 	textTemplate: JST['text'],
 	navTemplate: JST['nav'],
+	imageTemplate: JST['image'],
 
-	initialize: function () {
+	initialize: function (options) {
+		if (options.activePageId) {
+			this.activePageId = options.activePageId;
+		}
 	},
 
 	events: {
@@ -14,7 +18,8 @@ MiniWeebly.Views.DragView = Backbone.View.extend({
 		'dragover .body': 'makeDroppable',
 		'mousedown .layout-resize' : 'startResize',
 		'mousemove': 'resizeLayout',
-		'mouseup' : 'endResize'
+		'mouseup' : 'endResize',
+		'click .layout-remove': 'removeLayout'
 	},
 
 	startResize: function (event) {
@@ -50,6 +55,12 @@ MiniWeebly.Views.DragView = Backbone.View.extend({
 		}
 	},
 
+	removeLayout: function (event) {
+		event.preventDefault();
+		$(event.target.parentElement.parentElement).remove();
+		this.mainView.saveActive();
+	},
+
 	renderLayout: function () {
 		var content;
 		switch (this.dragging) {
@@ -58,6 +69,9 @@ MiniWeebly.Views.DragView = Backbone.View.extend({
 				break;
 			case 'text':
 				content = this.textTemplate();
+				break;
+			case 'image':
+				content = this.imageTemplate();
 				break;
 			default:
 				content = this.template({ type: this.dragging });
@@ -74,19 +88,20 @@ MiniWeebly.Views.DragView = Backbone.View.extend({
 		// console.log(this.dragging);
 		var dropSpot = event.target.getAttribute('class');
 		if (this.dragging) {
-			if (dropSpot === 'layout-hori' || dropSpot === 'layout') {
+			if (dropSpot === 'layout-hori' || dropSpot === 'layout' || dropSpot === 'layout-image') {
 				$(event.target).after(this.renderLayout());
-			} else if (dropSpot === 'layout-text' || dropSpot === 'layout-title') {
+			} else if (dropSpot === 'layout-text' || dropSpot === 'layout-title' || dropSpot === 'layout-image-icon') {
 				$(event.target).parent().after(this.renderLayout());
+
 			} else {
 				this.$el.find('.body').append(this.renderLayout());
 			}
 			this.mainView.saveActive();
 		} else {
-			if (dropSpot === 'layout-hori' || dropSpot === 'layout') {
+			if (dropSpot === 'layout-hori' || dropSpot === 'layout' || dropSpot === 'layout-image') {
 				$(event.target).after(this.dragged);
 				this.mainView.saveActive();
-			} else if (dropSpot === 'layout-text' || dropSpot === 'layout-title') {
+			} else if (dropSpot === 'layout-text' || dropSpot === 'layout-title' || dropSpot === 'layout-image-icon') {
 				$(event.target).parent().after(this.dragged);
 				this.mainView.saveActive();
 			} 
@@ -125,7 +140,8 @@ MiniWeebly.Views.DragView = Backbone.View.extend({
 		this.$el.append(this.sideView.render().$el);
 
 		this.mainView = new MiniWeebly.Views.MainView({
-			collection: this.collection
+			collection: this.collection,
+			activePageId: this.activePageId
 		});
 		this.$el.append(this.mainView.render().$el);
 

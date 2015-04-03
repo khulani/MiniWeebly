@@ -1,7 +1,8 @@
 MiniWeebly.Views.MainView = Backbone.View.extend({
 	template: JST['main'],
 
-	initialize: function () {
+	initialize: function (options) {
+		this.activePageId = options.activePageId;
 		this.listenTo(this.collection, 'add', this.addPage);
 		this.listenTo(this.collection, 'remove', this.removePage);
 		this.collection.each(this.addPage.bind(this));
@@ -10,7 +11,7 @@ MiniWeebly.Views.MainView = Backbone.View.extend({
 	},
 
 	events: {
-		'click button.page-main': 'activatePage'
+		'click button.page-main': 'activatePage',
 	},
 
 	activatePage: function (event) {
@@ -19,12 +20,15 @@ MiniWeebly.Views.MainView = Backbone.View.extend({
 		var pageMain = _.find(
       this.pageViews,
       function (pageView) {
-        return pageView.model.cid == id;
+        return pageView.model.id == id;
       }
     );
-    this.activePage.deactivate();
+    if (this.activePage) {
+	    this.activePage.deactivate();
+	  }
     pageMain.activate();
     this.activePage = pageMain;
+    this.activePageId = pageMain.model.id;
 	},
 
 	addPage: function (page) {
@@ -33,7 +37,11 @@ MiniWeebly.Views.MainView = Backbone.View.extend({
 		this.pageViews.push(pageMain);
 		this.$el.find('.pages').append(pageMain.render().$el);
 
-		if (this.collection.length == 1 || !this.activePage) {
+		if (!this.activePageId) {
+			this.activePage = pageMain;
+			this.activePageId = page.id;
+			pageMain.activate();
+		} else if (this.activePageId == page.id) {
 			this.activePage = pageMain;
 			pageMain.activate();
 		}
@@ -50,9 +58,11 @@ MiniWeebly.Views.MainView = Backbone.View.extend({
     pageMain.remove();
     this.pageViews.splice(this.pageViews.indexOf(pageMain), 1);
     if (this.activePage === pageMain) {
+    	this.activePageId = false;
     	this.activePage = this.pageViews[0];
     	if (this.activePage) {
 	    	this.activePage.activate();
+	    	this.activePageId = pageMain.model.id;
 	    }
     }
 	},

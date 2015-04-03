@@ -52,7 +52,7 @@
 	float: left;
 	background: #34485C;
 	text-align: center;
-	padding: 20px 30px 12px;
+	padding: 19px 30px 10px;
 	border-bottom: 2px solid #21313F;
 }
 
@@ -66,6 +66,10 @@
 
 .elements.bottom {
 	border-bottom: 2px solid #21313F;
+}
+
+.element-text {
+	margin-top: 3px;
 }
 
 #title {

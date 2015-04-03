@@ -1,10 +1,26 @@
 .layout {
 	float: left;
 	min-width: 97%;
-	height: 100px;
 	padding: 10px;
 	border: 1px dashed white;
 	border-radius: 5px;
+}
+
+.layout-image {
+	float: left;
+	min-width: 97%;
+	min-height: 100px;
+	padding: 10px;
+	border: 2px solid #C0CCD8;
+	border-radius: 5px;
+	background: #EFF2F5;
+	text-align: center;
+}
+
+.image-text {
+	margin-top: 5px;
+	color: #C0CCD8;
+	font-size: 13px;
 }
 
 .layout:hover {
@@ -27,7 +43,32 @@
 	text-align: center;
 }
 
+.layout-remove {
+	position: absolute;
+	border: none;
+	top: -10px;
+	right: -10px;
+	width: 40px;
+	height: 40px;
+	background: url(Delete-Element.png) -7px -10px;
+}
+
+.layout-remove:hover {
+	background: url(Delete-Element.png) -50px -10px;
+}
+
+.layout-image-icon {
+	margin: auto auto;
+	width: 107px;
+	height: 110px;
+	background: url(Image-Placeholder.png) -15px -15px;
+}
+
 .layout:hover > .layout-clear {
+	visibility: visible;
+}
+
+.layout-image:hover > .layout-clear {
 	visibility: visible;
 }
 

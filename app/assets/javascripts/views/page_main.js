@@ -9,7 +9,7 @@ MiniWeebly.Views.PageMain = Backbone.View.extend({
 	},
 
 	initialize: function () {
-		this.listenTo(this.model, 'change', this.render);
+		this.listenTo(this.model, 'change sync', this.render);
 		if (this.model.get('content')) {
 			this.mainLayout = this.model.get('content');
 		} else {
@@ -20,7 +20,7 @@ MiniWeebly.Views.PageMain = Backbone.View.extend({
 	activate: function () {
 		this.$el.addClass('active');
 		$('.page-layout').html(this.mainLayout);
-		MiniWeebly.router.navigate('page/' + this.model.cid);
+		MiniWeebly.router.navigate('page/' + this.model.id);
 	},
 
 	saveContent: function () {
@@ -36,7 +36,7 @@ MiniWeebly.Views.PageMain = Backbone.View.extend({
 
 	render: function () {
 		this.$el.addClass('page-main');
-		this.$el.attr('id', this.model.cid);
+		this.$el.attr('id', this.model.id);
 		this.$el.html(this.template({ page: this.model }));
 
 		return this;
