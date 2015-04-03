@@ -19,6 +19,7 @@ MiniWeebly.Views.DragView = Backbone.View.extend({
 		'mousedown .layout-resize' : 'startResize',
 		'mousemove': 'resizeLayout',
 		'mouseup' : 'endResize',
+		'change textarea': 'saveText',
 		'click .layout-remove': 'removeLayout'
 	},
 
@@ -53,6 +54,11 @@ MiniWeebly.Views.DragView = Backbone.View.extend({
 			this.mainView.saveActive();
 			this.resize = false;
 		}
+	},
+
+	saveText: function (event) {
+		$(event.currentTarget).html(event.currentTarget.value);
+		this.mainView.saveActive();
 	},
 
 	removeLayout: function (event) {
@@ -110,7 +116,7 @@ MiniWeebly.Views.DragView = Backbone.View.extend({
 
 	makeDroppable: function (event) {
 		event.preventDefault();
-		// debugger;
+		debugger;
 	},
 
 	findPosition: function (event) {
