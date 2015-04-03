@@ -54,10 +54,10 @@ MiniWeebly.Views.MainView = Backbone.View.extend({
         return pageView.model === page;
       }
     );
-    pageMain.deactivate();
     pageMain.remove();
     this.pageViews.splice(this.pageViews.indexOf(pageMain), 1);
     if (this.activePage === pageMain) {
+    	pageMain.deactivate();
     	this.activePageId = false;
     	this.activePage = this.pageViews[0];
     	if (this.activePage) {

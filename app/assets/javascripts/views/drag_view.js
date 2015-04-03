@@ -12,7 +12,7 @@ MiniWeebly.Views.DragView = Backbone.View.extend({
 	},
 
 	events: {
-		'mousemove': 'test',
+		'mousemove .body': 'test',
 		'dragover .layout': 'findPosition',
 		'dragstart': 'trackDragged',
 		'drop': 'updateLayout',
@@ -125,24 +125,24 @@ MiniWeebly.Views.DragView = Backbone.View.extend({
 		event.preventDefault();
 	},
 
-	findPosition: function (event) {
-		// event.preventDefault();
-		var $curr = $(event.currentTarget);
-		var x = event.pageX - $curr.offset().left;
-		var y = event.pageY - $curr.offset().top;
-		var h = $curr.height();
-		var w = $curr.width();
-		if (y / h < .2) {
-			console.log('top');
-		} else if (y / h > .8) {
-			console.log('bottom');
-		} else if (x / w < .5) {
-			console.log('left');
-		} else if (x / w >= .5) {
-			console.log('right');
-		}
-		// debugger;
-	},
+	// findPosition: function (event) {
+	// 	// event.preventDefault();
+	// 	var $curr = $(event.currentTarget);
+	// 	var x = event.pageX - $curr.offset().left;
+	// 	var y = event.pageY - $curr.offset().top;
+	// 	var h = $curr.height();
+	// 	var w = $curr.width();
+	// 	if (y / h < .2) {
+	// 		console.log('top');
+	// 	} else if (y / h > .8) {
+	// 		console.log('bottom');
+	// 	} else if (x / w < .5) {
+	// 		console.log('left');
+	// 	} else if (x / w >= .5) {
+	// 		console.log('right');
+	// 	}
+	// 	// debugger;
+	// },
 
 	render: function () {
 		this.$el.addClass('mini-weebly');
