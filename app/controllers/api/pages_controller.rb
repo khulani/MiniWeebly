@@ -2,7 +2,7 @@ class Api::PagesController < ApplicationController
 	before_action :ensure_logged_in
 
 	def index
-		@pages = current_user.pages
+		@pages = current_user.pages.order(:created_at)
 		render :index
 	end
 
