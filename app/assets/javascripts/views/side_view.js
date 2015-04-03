@@ -24,15 +24,23 @@ MiniWeebly.Views.SideView = Backbone.View.extend({
 
   createPage: function (event) {
   	event.preventDefault();
+    var that = this;
     var formData = $(event.currentTarget).serializeJSON();
     var page = new MiniWeebly.Models.Page(formData);
 
-    page.save();
+    page.save({}, {
+      success: function () {
+        var pageItem = new MiniWeebly.Views.PageItem({ model: page });
+        event.currentTarget.reset();
+        that.collection.add(page);
+        that.$el.find('.page-items').append(pageItem.render().$el);
+      }
+    });
 
-  	var pageItem = new MiniWeebly.Views.PageItem({ model: page });
-    event.currentTarget.reset();
-    this.collection.add(page);
-    this.$el.find('.page-items').append(pageItem.render().$el);
+  	// var pageItem = new MiniWeebly.Views.PageItem({ model: page });
+   //  event.currentTarget.reset();
+   //  this.collection.add(page);
+   //  this.$el.find('.page-items').append(pageItem.render().$el);
   },
 
 	render: function () {

@@ -45,6 +45,7 @@ MiniWeebly.Views.MainView = Backbone.View.extend({
 			this.activePage = pageMain;
 			pageMain.activate();
 		}
+		// debugger;
 	},
 
 	removePage: function (page) {
