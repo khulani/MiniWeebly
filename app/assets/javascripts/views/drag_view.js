@@ -64,7 +64,8 @@ MiniWeebly.Views.DragView = Backbone.View.extend({
 	render: function () {
 		this.$el.addClass('mini-weebly');
 		this.sideView = new MiniWeebly.Views.SideView({
-			collection: this.collection
+			collection: this.collection,
+			model: this.model
 		});
 		this.$el.append(this.sideView.render().$el);
 

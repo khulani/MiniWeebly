@@ -4,15 +4,29 @@ MiniWeebly.Views.PageMain = Backbone.View.extend({
 
 	tagName: 'button',
 
+	events: {
+		'mouseup .body': 'saveContent'
+	},
+
 	initialize: function () {
 		this.listenTo(this.model, 'change', this.render);
-		this.mainLayout = this.layoutTemplate();
+		if (this.model.get('content')) {
+			this.mainLayout = this.model.get('content');
+		} else {
+			this.mainLayout = this.layoutTemplate();
+		}
 	},
 
 	activate: function () {
 		this.$el.addClass('active');
 		$('.page-layout').html(this.mainLayout);
 		MiniWeebly.router.navigate('page/' + this.model.cid);
+	},
+
+	saveContent: function () {
+		debugger;
+		this.model.set('content', $('.page-layout').html());
+		this.model.save();
 	},
 
 	deactivate: function () {

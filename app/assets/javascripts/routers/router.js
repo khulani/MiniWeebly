@@ -1,6 +1,7 @@
 MiniWeebly.Routers.Router = Backbone.Router.extend({
 	routes: {
-		'': 'index'
+		'': 'index',
+		'page/:id': 'show'
 	},
 
 	initialize: function (options) {
@@ -8,8 +9,10 @@ MiniWeebly.Routers.Router = Backbone.Router.extend({
 	},
 
 	index: function () {
+		MiniWeebly.user.fetch();
+		MiniWeebly.pages.fetch();
 		this.dragView = new MiniWeebly.Views.DragView({
-			collection: MiniWeebly.pages
+			collection: MiniWeebly.pages,
 		});
 		this.$rootEl.append(this.dragView.render().$el);
 
@@ -22,5 +25,15 @@ MiniWeebly.Routers.Router = Backbone.Router.extend({
 		// 	collection: MiniWeebly.pages
 		// });
 		// this.$rootEl.append(this.mainView.render().$el);
+	},
+
+	show: function (id) {
+		MiniWeebly.user.fetch();
+		MiniWeebly.pages.fetch();
+		this.dragView = new MiniWeebly.Views.DragView({
+			collection: MiniWeebly.pages,
+			activePage: id
+		});
+		this.$rootEl.append(this.dragView.render().$el);
 	}
 });

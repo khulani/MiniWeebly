@@ -10,10 +10,10 @@ MiniWeebly.Views.MainView = Backbone.View.extend({
 	},
 
 	events: {
-		'click button.page-main': 'activateView'
+		'click button.page-main': 'activatePage'
 	},
 
-	activateView: function (event) {
+	activatePage: function (event) {
 		event.preventDefault();
 		var id = $(event.currentTarget).attr('id');
 		var pageMain = _.find(

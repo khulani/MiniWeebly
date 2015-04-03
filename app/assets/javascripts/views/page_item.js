@@ -14,6 +14,7 @@ MiniWeebly.Views.PageItem = Backbone.View.extend({
     event.preventDefault();
     var formData = $(event.currentTarget).parent().serializeJSON();
     this.model.set(formData);
+    this.model.save();
     this.render();
   },
 

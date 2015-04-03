@@ -25,6 +25,17 @@ body {
 	border-bottom: 1px solid #404040;
 }
 
+.login {
+	float: right;
+	margin-top: 10px;
+	margin-right: 100px;
+	color: white;
+}
+
+.login > a {
+	color: white;
+}
+
 .main {
 	float: left;
 	margin-top: 84px;
